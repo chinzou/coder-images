@@ -44,6 +44,9 @@ RUN apt-get update && \
       unzip \
       vim \
       wget \
+      iputils-ping \
+      maven \
+      nano \
       rsync && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \

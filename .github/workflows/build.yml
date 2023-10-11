@@ -30,7 +30,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./ubuntu
+          context: ./images/ubuntu
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/coder-ubuntu:latest,${{ secrets.DOCKER_HUB_REGISTRY_USER }}/coder-ubuntu:${{ env.SHA_SHORT }}

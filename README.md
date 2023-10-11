@@ -1,3 +1,3 @@
-## Coder custom images
+## Coder custom resources
 
-Coder custom images for workspace templates mainly to support ARM64
+Coder custom resources for a cluster deployment on Raspberry Pis, mainly to support arm64 architecture and adapt to RPis resource constraints.
