@@ -1,4 +1,6 @@
 coder:
+  serviceAccount:
+    enableDeployments: true
   # You can specify any environment variables you'd like to pass to Coder
   # here. Coder consumes environment variables listed in
   # `coder server --help`, and these environment variables are also passed
@@ -22,5 +24,8 @@ coder:
 
     # (Optional) For production deployments the access URL should be set.
     # If you're just trying Coder, access the dashboard via the service IP.
-  
-  storageClassName: longhorn
+
+  persistence:
+    storageClass: mayastor
+persistence:
+  storageClass: mayastor

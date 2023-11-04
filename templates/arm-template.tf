@@ -1,12 +1,10 @@
 terraform {
   required_providers {
     coder = {
-      source  = "coder/coder"
-      version = "~> 0.11.0"
+      source = "coder/coder"
     }
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.22"
+      source = "hashicorp/kubernetes"
     }
   }
 }
@@ -37,7 +35,7 @@ data "coder_parameter" "cpu" {
   name         = "cpu"
   display_name = "CPU"
   description  = "The number of CPU cores"
-  default      = "1"
+  default      = "2"
   icon         = "/icon/memory.svg"
   mutable      = true
   option {
@@ -52,17 +50,13 @@ data "coder_parameter" "cpu" {
     name  = "3 Cores"
     value = "3"
   }
-  option {
-    name  = "4 Cores"
-    value = "4"
-  }
 }
 
 data "coder_parameter" "memory" {
   name         = "memory"
   display_name = "Memory"
   description  = "The amount of memory in GB"
-  default      = "1"
+  default      = "2"
   icon         = "/icon/memory.svg"
   mutable      = true
   option {
@@ -87,13 +81,13 @@ data "coder_parameter" "home_disk_size" {
   name         = "home_disk_size"
   display_name = "Home disk size"
   description  = "The size of the home disk in GB"
-  default      = "6"
+  default      = "10"
   type         = "number"
   icon         = "/emojis/1f4be.png"
   mutable      = false
   validation {
-    min = 1
-    max = 99999
+    min = 5
+    max = 150
   }
 }
 
@@ -252,6 +246,9 @@ resource "kubernetes_deployment" "main" {
         "app.kubernetes.io/name" = "coder-workspace"
       }
     }
+    strategy {
+      type = "Recreate"
+    }
 
     template {
       metadata {
@@ -312,9 +309,9 @@ resource "kubernetes_deployment" "main" {
                 topology_key = "kubernetes.io/hostname"
                 label_selector {
                   match_expressions {
-                    key      = "app.kubernetes.io/name"
+                    key      = "kubernetes.io/arch"
                     operator = "In"
-                    values   = ["coder-workspace"]
+                    values   = ["arm64"]
                   }
                 }
               }
